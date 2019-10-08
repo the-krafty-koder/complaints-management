@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+  <template id="assets_backend" inherit_id="web.assets_backend" name="Todo Kanban Assets" >
+      <xpath expr="." position="inside">
+          <link rel="stylesheet" href="/issues/static/src/css/issue_custom.css"/>
+      </xpath>
+  </template>
+</odoo>

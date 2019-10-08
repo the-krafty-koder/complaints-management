@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<odoo>
+        <act_window id="action_issue_stage"
+                    name="To-Do Issues"
+                    res_model="issue.stage"
+                    view_mode="tree,form"
+                    target="current"
+                    context="{'default_state': 'new'}"
+                    domain="[]"
+                    limit="80"
+        />
+
+        <act_window id="action_issues_task"
+                    name="Issues"
+                    res_model="issue_new.model"
+                    view_mode="kanban,form"
+                    context="{'search_default_filter_my_tasks': True}"
+        ></act_window>
+        <record id="Issue Task Kanban" model="ir.ui.view">
+                <field name="name">Issues </field>
+                <field name="model">issue_new.model</field>
+                <field name="arch" type="xml">
+                        <kanban default_group_by="stage_id" >
+                                <field name="id"></field>
+                                <field name="title"></field>
+                                <field name="cust_name"></field>
+                                <field name="color"></field>
+                                <field name="priority"></field>
+
+                                <templates>
+
+                                        <t t-name="kanban-box" class="kanban_card img-thumbnail">
+
+                                              <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click img-thumbnail" >
+                                                      <div class="o_dropdown_kanban dropdown">
+                                                              <a class="dropdown-toggle btn" data-toggle="dropdown" href="#" role="button">
+                                                                      <span class="fa fa-bars fa-lg" title=""  />
+                                                              </a>
+                                                              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                                                      <li>
+                                                                              <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                                                      </li>
+                                                              </ul>
+                                                      </div>
+
+                                                      <div class="oe_kanban_content">
+                                                              <div class="row">
+                                                                      <div class="col-md-5">
+                                                                              <div class="row">
+                                                                                      <div class="col-md-12 text-center">
+                                                                                              <div class="img-thumbnail ">
+                                                                                                      <img t-att-src="kanban_image('issue_new.model', 'proof', record.id.value)"
+                                                                                                           style="max-height: 200px; max-width: 85px;"
+                                                                                                           alt="Proof/Evidence image"
+                                                                                                           class="oe_kanban_picture"/>
+                                                                                              </div>
+                                                                                      </div>
+
+                                                                              </div>
+                                                                              <div class="row">
+                                                                                      <div class="col-md-12">
+                                                                                              <div class="priority">
+                                                                                                      <field name="priority" widget="priority"/>
+                                                                                              </div>
+                                                                                      </div>
+
+                                                                              </div>
+
+
+                                                                      </div>
+                                                                      <div class="col-md-6">
+                                                                              <div class="row">
+                                                                                      <b><h5><field name="title"></field></h5></b>
+                                                                              </div>
+                                                                              <div class="row">
+                                                                                      <div class="desc">
+                                                                                              <field name="desc"></field>
+                                                                                      </div>
+
+                                                                              </div>
+                                                                              <div class="row">
+                                                                                      <div class="cust">
+                                                                                              <b><field name="cust_name" class="cust"></field></b>
+                                                                                      </div>
+
+                                                                              </div>
+                                                                              <div class="row">
+                                                                                      <div class="assign">
+                                                                                              <field name="assign_to" class="assign"></field>
+                                                                                      </div>
+
+                                                                              </div>
+                                                                      </div>
+                                                              </div><br></br>
+
+
+                                                      </div>
+
+                                              </div>
+
+
+                                        </t>
+                                        <div class="oe_chatter">
+                                            <field name="message_follower_ids" widget="mail_followers" />
+                                            <field name="message_ids" widget="mail_thread" />
+                                        </div>
+                                </templates>
+                        </kanban>
+                </field>
+        </record>
+        <menuitem id="menu_issue_task" name="Issues" action="action_issues_task" />
+        <menuitem id="menu_issue_stage"  name="Stages" parent="menu_issue_task" sequence="10" action="action_issue_stage" ></menuitem>
+</odoo>

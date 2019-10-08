@@ -1,0 +1,23 @@
+.kanban_card,
+.oe_kanban_global_click
+{
+    border:2px solid #5185f3;
+}
+
+.high{
+    background-color: #3b5998;
+}
+
+.assign{
+    padding-top:2px;
+}
+
+.cust{
+    padding-top:2px;
+    padding-bottom:2px;
+}
+
+.priority{
+    padding-top:2em;
+}
+
